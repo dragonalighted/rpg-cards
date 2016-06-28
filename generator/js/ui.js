@@ -70,10 +70,12 @@ function ui_clear_all() {
 
 function ui_load_files(evt) {
     // ui_clear_all();
+    var a = $("#file-save-link")[0];
 
     var files = evt.target.files;
 
     for (var i = 0, f; f = files[i]; i++) {
+	   a.download = f.name; 
         var reader = new FileReader();
 
         reader.onload = function (reader) {
@@ -155,14 +157,25 @@ function ui_update_card_list() {
 }
 
 function ui_save_file() {
+    var a = $("#file-save-link")[0];
+    var deckName = prompt("Please input a deck name", a.download);
+    if(deckName == null || deckName.trim() === ""){
+        deckName = "rpg_cards.json";
+    }
+    else { 
+        deckName = deckName.replace(/[^a-z0-9_\-\.]/gi, '_'); 
+	   if(! deckName.endsWith(".json")) { 
+	      deckName = deckName + ".json";
+	   }
+    }
+    
     var str = JSON.stringify(card_data, null, "  ");
     var parts = [str];
     var blob = new Blob(parts, { type: 'application/json' });
     var url = URL.createObjectURL(blob);
 
-    var a = $("#file-save-link")[0];
     a.href = url;
-    a.download = "rpg_cards.json";
+    a.download = deckName; //"rpg_cards.json";
     a.click();
 
     setTimeout(function () { URL.revokeObjectURL(url); }, 500);
