@@ -303,9 +303,11 @@ var card_element_generators = {
 	disabled: card_element_empty,
 	picture: card_element_picture,
 	table: card_element_table_start,
+	tblstart: card_element_table_start,
 	tblend: card_element_table_end,
 	row: card_element_table_row ,
 	tr: card_element_table_row ,
+	header:card_element_table_header,
 	th: card_element_table_header
 };
 
