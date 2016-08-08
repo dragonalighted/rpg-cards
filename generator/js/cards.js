@@ -178,6 +178,52 @@ function card_element_text(params, card_data, options) {
     return result;
 }
 
+function card_element_table_row(params, card_data, option){	
+	return '<tr class="card-table-row"><td class="card-table-cell">' + params.join('</td><td class="card-table-cell">') + '</td></tr>'; 		
+}
+function card_element_table_header(params, card_data, options){
+	var result = "";	
+	var headers = params; 
+	result += '<tr class="card-table-header-row" style="background-color:' + (  card_data_color_front(card_data, options)) + '; color: '+ (options.foreground_color || 'white' ) +';">' ; 
+	result += '	<th class="card-table-header">' + headers.join('</th><th class="card-table-header">') ;
+	result += '</th></tr>'; 
+	return result; 
+}
+
+function card_element_table_start(params, card_data, options){	
+	var borders = (params[0] || "").trim();
+	var borderStyle ; 
+	switch(borders) {
+		case "partial":
+		case "table": 
+			borderStyle = ' card-table-border'; 
+			break; 
+		case "columns":
+		case "cols":
+		case "col":
+			borderStyle = ' card-table-cell-borders';
+			break; 
+		case "row":
+		case "rows":
+			borderStyle = ' card-table-row-borders';
+			break; 
+		case "cells":
+		case "cell":
+		case "full": 
+			borderStyle = ' card-table-row-borders card-table-cell-borders'
+			break;
+		case "none":
+		default: 
+			borderStyle = ' card-table-borderless'; 
+			break; 
+	}
+	var alt = (params[1] || 'on').trim() === "on" ? ' card-table-alt' : '';
+	return '<table class="card-element card-table '+ borderStyle + ' '+ alt + '" style="border-color:'+ card_data_color_front(card_data, options) + ';" >';	
+}
+
+function card_element_table_end(params, card_data, options){
+	return '</table>'; 
+}
 function card_element_dndstats(params, card_data, options) {
     var stats = [10, 10, 10, 10, 10, 10];
     var mods = [0,0,0,0,0,0];
@@ -243,19 +289,24 @@ function card_element_empty(params, card_data, options) {
 }
 
 var card_element_generators = {
-    subtitle: card_element_subtitle,
-    property: card_element_property,
-    rule: card_element_ruler,
-    ruler: card_element_ruler,
-    boxes: card_element_boxes,
-    description: card_element_description,
-    dndstats: card_element_dndstats,
-    text: card_element_text,
-    bullet: card_element_bullet,
-    fill: card_element_fill,
-    section: card_element_section,
-    disabled: card_element_empty,
-	picture: card_element_picture
+	subtitle: card_element_subtitle,
+	property: card_element_property,
+	rule: card_element_ruler,
+	ruler: card_element_ruler,
+	boxes: card_element_boxes,
+	description: card_element_description,
+	dndstats: card_element_dndstats,
+	text: card_element_text,
+	bullet: card_element_bullet,
+	fill: card_element_fill,
+	section: card_element_section,
+	disabled: card_element_empty,
+	picture: card_element_picture,
+	table: card_element_table_start,
+	tblend: card_element_table_end,
+	row: card_element_table_row ,
+	tr: card_element_table_row ,
+	th: card_element_table_header
 };
 
 // ============================================================================

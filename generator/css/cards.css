@@ -236,3 +236,42 @@
     margin-top: 0;
     font-size: inherit;
 }
+
+.card-table {
+	width : 100%; 
+}
+
+.card-table.card-table-border, .card-table.card-table-cell-borders {
+	border-width: 1px;
+	border-style: solid; 
+} 
+
+.card-table.card-table-borderless {
+	border-width: 0px;
+	border-style: none; 
+} 
+
+.card-table.card-table-alt tr:nth-child(odd) {
+	background-color: lightgray; 
+}
+
+.card-table.card-table-cell-borders .card-table-row > td {
+	border-left-width: 1px; 
+	border-left-style: solid; 
+	border-left-color: inherit;
+}
+
+.card-table.card-table-row-borders .card-table-row > td {
+	border-bottom-width: 1px; 
+	border-bottom-style: solid; 
+	border-bottom-color: inherit;
+}
+
+
+.card-table-cell , .card-table-header{ 
+	text-align:center; 
+	padding: 1px 0px 1px 0px; 
+}
+
+
+
