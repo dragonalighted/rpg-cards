@@ -178,9 +178,14 @@ function card_element_text(params, card_data, options) {
     return result;
 }
 
-function card_element_table_row(params, card_data, option){	
+function card_element_table_row(params, card_data, options){	
 	return '<tr class="card-table-row"><td class="card-table-cell">' + params.join('</td><td class="card-table-cell">') + '</td></tr>'; 		
 }
+
+function card_element_table_rowalt(params, card_data, options){	
+	return '<tr class="card-table-row"><td class="card-table-cell bold" style="background-color: '+card_data_color_front(card_data, options)+';color: '+ (options.foreground_color || 'white' ) +';">' + params.join('</td><td class="card-table-cell">') + '</td></tr>'; 		
+}
+
 function card_element_table_header(params, card_data, options){
 	var result = "";	
 	var headers = params; 
@@ -288,12 +293,19 @@ function card_element_empty(params, card_data, options) {
     return '';
 }
 
+function card_element_indent(params, card_data, options){
+	return '<span style="padding-left:1em;"><b>' + params[0] + '</b> ' + params[1] + '</span>'; 
+}
+
 var card_element_generators = {
 	subtitle: card_element_subtitle,
+	prop: card_element_property,
 	property: card_element_property,
 	rule: card_element_ruler,
 	ruler: card_element_ruler,
 	boxes: card_element_boxes,
+	d: card_element_description,
+	desc: card_element_description,
 	description: card_element_description,
 	dndstats: card_element_dndstats,
 	text: card_element_text,
@@ -306,9 +318,12 @@ var card_element_generators = {
 	tblstart: card_element_table_start,
 	tblend: card_element_table_end,
 	row: card_element_table_row ,
+	rowa: card_element_table_rowalt,
+	rowalt: card_element_table_rowalt,
 	tr: card_element_table_row ,
 	header:card_element_table_header,
-	th: card_element_table_header
+	th: card_element_table_header,
+	indent: card_element_indent
 };
 
 // ============================================================================

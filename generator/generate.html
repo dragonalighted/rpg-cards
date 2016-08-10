@@ -99,6 +99,7 @@
                         </div>
                         <div class="col-sm-6">
                             <button type="button" class="btn btn-primary btn-block" id="button-load">Load from file</button>
+                            <!-- <button type="button" class="btn btn-primary btn-block" id="button-load-server">Load from Server</button> -->
                         </div>
                     </div>
                     <div class="form-group">
@@ -107,6 +108,7 @@
                         </div>
                         <div class="col-sm-6">
                             <button type="button" class="btn btn-primary btn-block" id="button-save" onclick="ui_save_file()">Save to file</button>
+                            <!-- <button type="button" class="btn btn-primary btn-block" id="button-save-server" onclick="ui_save_server()">Save to Server</button> -->
                             <a href="" download="rpg_cards.json" id="file-save-link" style="display:none">Hidden download link</a>
                         </div>
                     </div>
@@ -502,26 +504,27 @@ if (card_has_tag(card, "creature")) {
 	<div id="avail-elements-content" class="hidden">
 
 		<table class='avail-elements-table'>
-			<tr><td>subtitle		</td><td>	Subtitle Text	</td></tr>
-			<tr><td>rule			</td><td>	<i>none</i>	</td></tr>
-			<tr><td>property		</td><td>	name|description	</td></tr>
-			<tr><td>description	</td><td>	name|description	</td></tr>
-			<tr><td>text			</td><td>	text	</td></tr>
-			<tr><td>subsection		</td><td>	name	</td></tr>
-			<tr><td>boxes			</td><td>	#boxes|size	</td></tr>
-			<tr><td>dndstats		</td><td>	str|des|con|int|wis|cha	</td></tr>
-			<tr><td>fill			</td><td>	# spaces	</td></tr>
-			<tr><td>bullet			</td><td>	text	</td></tr>
-			<tr><td>picture		</td><td>	pic url|height	</td></tr>
-			<tr><td>table			</td><td>	border-style | alt-style <br/>
+			<tr><td>subtitle				</td><td>	Subtitle Text	</td></tr>
+			<tr><td>rule					</td><td>	<i>none</i>	</td></tr>
+			<tr><td>property, prop			</td><td>	name|description	</td></tr>
+			<tr><td>description, desc, d	</td><td>	name|description	</td></tr>
+			<tr><td>text					</td><td>	text	</td></tr>
+			<tr><td>subsection				</td><td>	name	</td></tr>
+			<tr><td>boxes					</td><td>	#boxes|size	</td></tr>
+			<tr><td>dndstats				</td><td>	str|des|con|int|wis|cha	</td></tr>
+			<tr><td>fill					</td><td>	# spaces	</td></tr>
+			<tr><td>bullet					</td><td>	text	</td></tr>
+			<tr><td>picture				</td><td>	pic url|height	</td></tr>
+			<tr><td>table					</td><td>	border-style | alt-style <br/>
 												<div style="position:relative;left:0.5em; font-style:italic; width:90%;">
 												partial|table|columns|rows|cells|<u>none</u><br/>
 												<u>on</u>| off </i>
 												</div>
 													</td></tr>
-			<tr><td>tblend			</td><td> <i>none</i>	</td></tr>
-			<tr><td>row			</td><td> <i>none</i>	</td></tr>
-			<tr><td>header			</td><td> <i>none</i>	</td></tr>
+			<tr><td>tblend					</td><td> <i>none</i>	</td></tr>
+			<tr><td>row					</td><td> <i>none</i>	</td></tr>
+			<tr><td>header					</td><td> <i>none</i>	</td></tr>
+			<tr><td>indent					</td><td> bold|text	</td></tr>
 		</table>
 
 	</div>

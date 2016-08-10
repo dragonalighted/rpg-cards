@@ -267,11 +267,21 @@
 	border-bottom-color: inherit;
 }
 
+table.card-table.card-table-row-borders {
+	border-width:1px;
+	border-style:solid;
+	border-color:inherit;
+} 
+table.card-element.card-table{
+	color: black; 
+}
+
 
 .card-table-cell , .card-table-header{ 
 	text-align:center; 
 	padding: 1px 0px 1px 0px; 
 }
 
-
-
+.bold {
+	font-weight: bold;
+}
