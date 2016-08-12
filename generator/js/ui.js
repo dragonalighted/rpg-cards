@@ -515,12 +515,14 @@ function ui_contents_focus(){
 	
 	contents.scrollTop($(document).height());
 	contents.parent().css("z-index", "999999");
+	contents.addClass("card-contents-expanded");
 }
 
 function ui_contents_blur(){
 	var contents = 	$('#card-contents');
 	contents.css("width", contents.data("width") );
 	contents.css("height", contents.data("height") );
+	contents.removeClass("card-contents-expanded");
 
 }
 function ui_collapse_command(){
