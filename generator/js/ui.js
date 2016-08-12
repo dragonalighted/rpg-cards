@@ -214,7 +214,10 @@ function ui_render_selected_card() {
     if (card) {
         var front = card_generate_front(card, card_options);
         var back = card_generate_back(card, card_options);
-        $('#preview-container').html(front + "\n" + back);
+        var preview = $('#preview-container');
+		preview.html(front + "\n<br/>\n" + back);
+		cards = preview.find('.card'); 	
+		preview.css("display", (cards.first().width() * 2) > preview.width() ? "" : "flex");
     }
 }
 
@@ -443,56 +446,98 @@ function ui_apply_default_icon_back() {
 }
 
 $(document).ready(function () {
-    ui_setup_color_selector();
-    $('.icon-list').typeahead({source:icon_names});
-
-    $("#button-generate").click(ui_generate);
-    $("#button-load").click(function () { $("#file-load").click(); });
-    $("#file-load").change(ui_load_files);
-    $("#button-clear").click(ui_clear_all);
-    $("#button-load-sample").click(ui_load_sample);
-    //$("#button-save").click(ui_save_file);
-    $("#button-sort").click(ui_sort);
-    $("#button-filter").click(ui_filter);
-    $("#button-add-card").click(ui_add_new_card);
-    $("#button-duplicate-card").click(ui_duplicate_card);
-    $("#button-delete-card").click(ui_delete_card);
-    $("#button-help").click(ui_open_help);
-    $("#button-apply-color").click(ui_apply_default_color);
-    $("#button-apply-icon").click(ui_apply_default_icon);
-    $("#button-apply-icon-back").click(ui_apply_default_icon_back);
-
-    $("#selected-card").change(ui_update_selected_card);
-
-    $("#card-title").change(ui_change_card_title);
-    $("#card-title-size").change(ui_change_card_property);
-    $("#card-icon").change(ui_change_card_property);
-    $("#card-count").change(ui_change_card_property);
-    $("#card-icon-back").change(ui_change_card_property);
+	ui_setup_color_selector();
+	ui_setup_popovers();
+	$('.icon-list').typeahead({source:icon_names});
+	
+	$("#button-generate").click(ui_generate);
+	$("#button-load").click(function () { $("#file-load").click(); });
+	$("#file-load").change(ui_load_files);
+	$("#button-clear").click(ui_clear_all);
+	$("#button-load-sample").click(ui_load_sample);
+	//$("#button-save").click(ui_save_file);
+	$("#button-sort").click(ui_sort);
+	$("#button-filter").click(ui_filter);
+	$("#button-add-card").click(ui_add_new_card);
+	$("#button-duplicate-card").click(ui_duplicate_card);
+	$("#button-delete-card").click(ui_delete_card);
+	$("#button-help").click(ui_open_help);
+	$("#button-apply-color").click(ui_apply_default_color);
+	$("#button-apply-icon").click(ui_apply_default_icon);
+	$("#button-apply-icon-back").click(ui_apply_default_icon_back);
+	
+	$("#selected-card").change(ui_update_selected_card);
+	
+	$("#card-title").change(ui_change_card_title);
+	$("#card-title-size").change(ui_change_card_property);
+	$("#card-icon").change(ui_change_card_property);
+	$("#card-count").change(ui_change_card_property);
+	$("#card-icon-back").change(ui_change_card_property);
 	$("#card-background").change(ui_change_card_property);
 	$("#card-color").change(ui_change_card_color);
-    $("#card-contents").change(ui_change_card_contents);
-    $("#card-tags").change(ui_change_card_tags);
-
-    $("#page-size").change(ui_change_option);
-    $("#page-rows").change(ui_change_option);
-    $("#page-columns").change(ui_change_option);
-    $("#card-arrangement").change(ui_change_option);
-    $("#card-size").change(ui_change_option);
-    $("#background-color").change(ui_change_option);
-
-    $("#default-color").change(ui_change_default_color);
-    $("#default-icon").change(ui_change_default_icon);
-    $("#default-title-size").change(ui_change_default_title_size);
-    $("#small-icons").change(ui_change_default_icon_size);
-
-    $(".icon-select-button").click(ui_select_icon);
-
-    $("#sort-execute").click(ui_sort_execute);
-    $("#filter-execute").click(ui_filter_execute);
-    
-    ui_update_card_list();
+	$("#card-contents").change(ui_change_card_contents);
+	$("#card-tags").change(ui_change_card_tags);
+	
+	$("#page-size").change(ui_change_option);
+	$("#page-rows").change(ui_change_option);
+	$("#page-columns").change(ui_change_option);
+	$("#card-arrangement").change(ui_change_option);
+	$("#card-size").change(ui_change_option);
+	$("#background-color").change(ui_change_option);
+	
+	$("#default-color").change(ui_change_default_color);
+	$("#default-icon").change(ui_change_default_icon);
+	$("#default-title-size").change(ui_change_default_title_size);
+	$("#small-icons").change(ui_change_default_icon_size);
+	
+	$(".icon-select-button").click(ui_select_icon);
+	
+	$("#sort-execute").click(ui_sort_execute);
+	$("#filter-execute").click(ui_filter_execute);
+	
+	ui_update_card_list();
+	
+	$('#command-collapse').click(ui_collapse_command);
+	
+	$('#card-contents').on('focus', ui_contents_focus);
+	$('#card-contents').on('blur', ui_contents_blur);
 });
 
+function ui_contents_focus(){
+	var contents = 	$('#card-contents');
+	var width = contents.data("width"); 
+	var height = contents.data("height"); 
+	if( width === undefined || width === "") { contents.data("width", contents.outerWidth()); }	
+	if( height === undefined || height === "") { contents.data("height", contents.outerHeight()); }	
+	
+	contents.css("width", (contents.data("width") * 2) + "px");
+	contents.css("height", (contents.data("height") * 1.5) + "px");
+	
+	contents.scrollTop($(document).height());
+	contents.parent().css("z-index", "999999");
+}
 
+function ui_contents_blur(){
+	var contents = 	$('#card-contents');
+	contents.css("width", contents.data("width") );
+	contents.css("height", contents.data("height") );
+
+}
+function ui_collapse_command(){
+	var command = $('#commands');
+	command.toggleClass("hidden"); 
+
+	var preview = $("#card-preview"); 
+	preview.attr("class", command.hasClass("hidden") ? "col-md-12 col-lg-7" : "col-md-12 col-lg-5");
+}
+function ui_setup_popovers(){
+	$('#available-elements').popover(
+		{ html: true,
+		 container: 'body',
+		 content: function() { 
+			return $('#avail-elements-content').html();  
+			}
+		 } 
+	); 		
+}
 
