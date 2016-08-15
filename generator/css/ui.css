@@ -124,7 +124,13 @@ html, body {
 }
 
 
+
 .card-contents-expanded {
 	position:relative;
 	top:10px;
 }
+
+
+.dropdown-menu{
+	z-index: 10000
+ }

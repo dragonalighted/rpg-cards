@@ -514,7 +514,7 @@ function ui_contents_focus(){
 	contents.css("height", (contents.data("height") * 1.5) + "px");
 	
 	contents.scrollTop($(document).height());
-	contents.parent().css("z-index", "999999");
+	contents.parent().css("z-index", "10");
 	contents.addClass("card-contents-expanded");
 }
 
